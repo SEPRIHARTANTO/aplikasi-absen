@@ -4,15 +4,10 @@
     <!-- Pengaturan Dasar PWA -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <meta name="theme-color" content="#4A90E2"/>
+    <meta name="theme-color" content="#5A67D8"/>
     <title>Aplikasi Absen Kelas</title>
-    
     <link rel="manifest" href="manifest.json">
     <link rel="apple-touch-icon" href="icon-192.png">
-
-    <!-- TODO: Tambahkan file manifest.json untuk fungsionalitas PWA penuh -->
-    <!-- <link rel="manifest" href="manifest.json"> -->
-    <!-- <link rel="apple-touch-icon" href="images/icon-192x192.png"> -->
     
     <!-- Impor Font dari Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -20,20 +15,21 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
-        /* --- Variabel Warna & Reset CSS --- */
         :root {
-            --primary-color: #4A90E2;
-            --background-color: #F0F2F5;
+            --primary-color: #5A67D8; /* Indigo */
+            --background-color: #F7FAFC; /* Gray 100 */
             --card-bg: #FFFFFF;
-            --text-color: #333333;
-            --danger-color: #D0021B;
-            --success-color: #2E7D32;
+            --text-color: #2D3748; /* Gray 800 */
+            --subtle-text: #718096; /* Gray 500 */
+            --danger-color: #E53E3E; /* Red 600 */
+            --success-color: #38A169; /* Green 600 */
+            --input-bg: #EDF2F7; /* Gray 200 */
         }
 
         html, body {
             height: 100%;
             margin: 0;
-            overscroll-behavior: contain; /* Mencegah pull-to-refresh */
+            overscroll-behavior: contain;
         }
 
         body {
@@ -44,133 +40,147 @@
             align-items: center;
         }
 
-        /* --- Kontainer Utama Aplikasi --- */
         .app-shell {
             width: 100%;
             height: 100%;
-            max-width: 450px; /* Lebar maksimal untuk tampilan seperti HP */
+            max-width: 450px;
             background-color: var(--card-bg);
-            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            box-shadow: 0 0 30px rgba(0,0,0,0.05);
             overflow: hidden;
             position: relative;
         }
 
-        /* --- Halaman & Transisi --- */
         .page {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            padding: 25px;
+            padding: 0; /* Padding diatur per section */
             box-sizing: border-box;
-            transform: translateX(100%);
-            transition: transform 0.3s ease-in-out;
+            opacity: 0;
+            transform: scale(0.98);
+            transition: opacity 0.35s ease-in-out, transform 0.35s ease-in-out;
             background-color: var(--card-bg);
             overflow-y: auto;
+            visibility: hidden;
         }
-
+        
         .page.active {
-            transform: translateX(0);
+            opacity: 1;
+            transform: scale(1);
+            visibility: visible;
         }
 
-        #login-page {
-            transform: translateX(0); /* Halaman pertama yang aktif */
+        /* --- Tampilan Halaman Login Baru --- */
+        #login-page .login-container {
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            box-sizing: border-box;
         }
-        
-        /* --- Elemen UI Umum --- */
-        .header-logo {
+
+        .login-illustration {
             text-align: center;
-            margin: 30px 0;
+            padding: 40px 0 30px 0;
+        }
+        
+        .login-illustration svg {
+            width: 80%;
+            max-width: 250px;
         }
 
-        .header-logo img {
-            width: 90px;
-            height: 90px;
-            border-radius: 20px;
-            background-color: #eef;
-            padding: 5px;
-            box-shadow: 0 4px 10px rgba(74, 144, 226, 0.2);
+        .login-header h2 {
+            font-size: 1.8em;
+            font-weight: 700;
+            margin: 0 0 5px 0;
+            color: var(--text-color);
+        }
+
+        .login-header p {
+            margin: 0 0 30px 0;
+            color: var(--subtle-text);
+            font-size: 1em;
         }
         
-        .header-logo h2 { margin: 10px 0 5px; color: var(--primary-color); }
-        .header-logo p { margin: 0; color: #888; }
-        
-        .input-group { margin-bottom: 20px; }
-        .input-group label { display: block; font-weight: 500; margin-bottom: 8px; color: #555; }
+        /* Input Fields dengan Ikon */
+        .input-group { 
+            margin-bottom: 20px; 
+            position: relative;
+        }
+        .input-group .icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--subtle-text);
+            width: 20px;
+            height: 20px;
+        }
         .input-group input {
             width: 100%;
-            padding: 14px;
-            border: 1px solid #ddd;
-            border-radius: 10px;
+            padding: 15px 15px 15px 50px; /* Padding kiri untuk ikon */
+            border: 1px solid transparent;
+            border-radius: 12px;
             box-sizing: border-box;
             font-size: 1em;
             font-family: 'Poppins', sans-serif;
+            background-color: var(--input-bg);
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .input-group input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(90, 103, 216, 0.2);
         }
 
         .main-button {
             width: 100%;
-            padding: 15px;
-            background-image: linear-gradient(45deg, #4facfe, #00f2fe);
+            padding: 16px;
+            background: var(--primary-color);
             color: white;
             border: none;
             border-radius: 12px;
             cursor: pointer;
             font-size: 1.1em;
             font-weight: 600;
-            -webkit-tap-highlight-color: transparent; /* Hilangkan highlight saat disentuh */
+            margin-top: 10px;
+            -webkit-tap-highlight-color: transparent;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .main-button:hover {
+            box-shadow: 0 5px 15px rgba(90, 103, 216, 0.3);
+            transform: translateY(-2px);
         }
         
         .link-button {
-            color: var(--primary-color);
+            color: var(--subtle-text);
             text-decoration: none;
             font-weight: 500;
             display: block;
             text-align: center;
-            margin-top: 20px;
+            margin-top: 25px;
+            font-size: 0.9em;
         }
         
         #login-message { text-align: center; color: var(--danger-color); height: 20px; font-weight: 500; }
-
-        /* --- Halaman Dasbor --- */
+        
+        /* --- Style untuk halaman dasbor (tetap sama) --- */
+        #dashboard-page { padding: 25px; }
         .dashboard-header { display: flex; justify-content: space-between; align-items: center; }
         .dashboard-header h3 { margin: 0; max-width: 80%; }
         #logout-btn { background: #eee; color: #555; border: none; padding: 8px 15px; border-radius: 8px; font-size: 0.9em; }
-
-        .info-card { background: linear-gradient(45deg, #4a90e2, #53c8fa); color: white; padding: 20px; border-radius: 15px; text-align: center; margin: 25px 0; }
+        .info-card { background: linear-gradient(45deg, #5A67D8, #805AD5); color: white; padding: 20px; border-radius: 15px; text-align: center; margin: 25px 0; }
         .info-card p { margin: 0; line-height: 1.5; }
-
         .attendance-form h4 { text-align: center; margin-bottom: 25px; }
         .radio-group { display: flex; justify-content: space-around; }
         .radio-group label { display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 15px; border: 2px solid #ddd; border-radius: 12px; width: 80px; text-align: center; transition: all 0.2s ease; }
         .radio-group input { display: none; }
-        .radio-group input:checked + label { border-color: var(--primary-color); background-color: #eaf2ff; }
-        
-        #attendance-status { padding: 30px; border-radius: 15px; text-align: center; background-color: #e7f5e7; color: var(--success-color); display: none; }
-
-        /* --- Modal Pop-up --- */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.6);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            padding: 20px;
-            box-sizing: border-box;
-        }
-        .modal-content {
-            background: var(--card-bg);
-            padding: 30px;
-            border-radius: 16px;
-            text-align: center;
-            width: 100%;
-            max-width: 350px;
-        }
+        .radio-group input:checked + label { border-color: var(--primary-color); background-color: #EBF4FF; }
+        #attendance-status { padding: 30px; border-radius: 15px; text-align: center; background-color: #C6F6D5; color: var(--success-color); display: none; }
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.6); display: none; justify-content: center; align-items: center; z-index: 1000; padding: 20px; box-sizing: border-box; }
+        .modal-content { background: var(--card-bg); padding: 30px; border-radius: 16px; text-align: center; width: 100%; max-width: 350px; }
         .modal-content h3 { margin-top: 0; color: var(--danger-color); }
         .modal-content .main-button { margin-top: 25px; }
 
@@ -179,31 +189,39 @@
 <body>
 
     <div class="app-shell">
-        <!-- HALAMAN LOGIN -->
+        <!-- HALAMAN LOGIN DENGAN DESAIN BARU -->
         <div id="login-page" class="page active">
-            <div class="header-logo">
-                <img src="https://placehold.co/128x128/EAF2FF/4A90E2?text=S" alt="Logo Sekolah">
-                <h2>Selamat Datang</h2>
-                <p>Aplikasi Absensi Kelas Digital</p>
+            <div class="login-container">
+                <div class="login-illustration">
+                    <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                        <path fill="#EBF4FF" d="M37.7,-47.9C52.1,-37.9,69.5,-29,75.9,-14.8C82.4,-0.6,77.9,18.8,67.6,33.5C57.3,48.2,41.2,58.2,25.2,65.3C9.2,72.4,-6.8,76.6,-22.2,72.2C-37.7,67.8,-52.7,54.8,-63.9,39.6C-75.1,24.4,-82.6,7.1,-79.8,-8.5C-77,-24,-64,-37.8,-49.4,-48.1C-34.8,-58.4,-18.8,-65.2,-3.3,-63.2C12.1,-61.2,24.3,-58,37.7,-47.9Z" transform="translate(100 100)" />
+                    </svg>
+                </div>
+                
+                <div class="login-header">
+                    <h2>Selamat Datang!</h2>
+                    <p>Login untuk memulai absensi.</p>
+                </div>
+
+                <form id="login-form">
+                    <div class="input-group">
+                        <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.5a5.5 5.5 0 0 1 3.096 10.047 9.005 9.005 0 0 1 5.9 8.181.75.75 0 1 1-1.499.044 7.5 7.5 0 0 0-14.993 0 .75.75 0 0 1-1.5-.045 9.005 9.005 0 0 1 5.9-8.18A5.5 5.5 0 0 1 12 2.5ZM8 8a4 4 0 1 0 8 0 4 4 0 0 0-8 0Z" /></svg>
+                        <input type="text" id="userID" placeholder="ID Pengguna" value="budi01" required>
+                    </div>
+                    <div class="input-group">
+                        <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M18 1.5a2.25 2.25 0 0 1 2.25 2.25v5.337c.453.141.887.33 1.29.56V4.49A3.75 3.75 0 0 0 18 .75h- 상황에 맞춰 조정하십시오.a3.75 3.75 0 0 0-3.75 3.75v14.075c0 1.34.833 2.513 2.06 3.018a3.73 3.73 0 0 0 3.818-1.034 3.73 3.73 0 0 0 1.034-3.818c-.505-1.227-1.678-2.06-3.018-2.06h-1.125V9.75a.75.75 0 0 1 .75-.75h.008a.75.75 0 0 1 .75.75v3.188c1.334.33 2.54.941 3.562 1.762V4.49A2.25 2.25 0 0 1 18 1.5Z M12 1.5a5.25 5.25 0 0 0-5.25 5.25v3a.75.75 0 0 0 .75.75h9a.75.75 0 0 0 .75-.75v-3A5.25 5.25 0 0 0 12 1.5Zm-3.75 5.25v3h7.5v-3a3.75 3.75 0 0 0-7.5 0Z" /></svg>
+                        <input type="password" id="password" placeholder="Password" value="pass123" required>
+                    </div>
+                    <p id="login-message"></p>
+                    <button type="submit" class="main-button">Login</button>
+                </form>
+                <a href="#" id="forgot-password-link" class="link-button">Lupa Password?</a>
             </div>
-            <form id="login-form">
-                <div class="input-group">
-                    <label for="userID">ID Pengguna (UserID)</label>
-                    <input type="text" id="userID" value="budi01" required>
-                </div>
-                <div class="input-group">
-                    <label for="password">Password</label>
-                    <input type="password" id="password" value="pass123" required>
-                </div>
-                <p id="login-message"></p>
-                <button type="submit" class="main-button">Login</button>
-            </form>
-            <a href="#" id="forgot-password-link" class="link-button">Lupa Password?</a>
         </div>
 
-        <!-- HALAMAN DASBOR -->
+        <!-- HALAMAN DASBOR (TIDAK BERUBAH) -->
         <div id="dashboard-page" class="page">
-            <div class="dashboard-header">
+             <div class="dashboard-header">
                 <h3 id="welcome-message">Hai, Pengguna</h3>
                 <button id="logout-btn">Logout</button>
             </div>
@@ -244,14 +262,9 @@
     </div>
 
     <script>
-        // --- DATABASE SISWA (SIMULASI UNTUK PROTOTIPE) ---
-        const studentDatabase = {
-            "budi01": { password: "pass123", fullName: "Budi Santoso", alphaCount: 3 },
-            "ana02": { password: "pass123", fullName: "Ana Yuliana", alphaCount: 0 },
-            "citra03": { password: "pass123", fullName: "Citra Lestari", alphaCount: 1 }
-        };
+        // --- KODE JAVASCRIPT TETAP SAMA ---
 
-        // --- ELEMEN DOM ---
+        const studentDatabase = { "budi01": { password: "pass123", fullName: "Budi Santoso", alphaCount: 3 }, "ana02": { password: "pass123", fullName: "Ana Yuliana", alphaCount: 0 }, "citra03": { password: "pass123", fullName: "Citra Lestari", alphaCount: 1 } };
         const loginPage = document.getElementById('login-page');
         const dashboardPage = document.getElementById('dashboard-page');
         const loginForm = document.getElementById('login-form');
@@ -267,96 +280,31 @@
         const alphaModal = document.getElementById('alpha-modal');
         const alphaMessage = document.getElementById('alpha-message');
         const closeModalBtn = document.getElementById('close-modal-btn');
-
-        // --- FUNGSI NAVIGASI ---
+        
         function navigateTo(pageElement) {
             document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
-            pageElement.classList.add('active');
-        }
-
-        // --- FUNGSI UTAMA ---
-        function updateTime() {
-            const now = new Date();
-            const optionsDate = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-            currentDateEl.textContent = now.toLocaleDateString('id-ID', optionsDate);
-            currentTimeEl.textContent = now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
-        }
-
-        function handleLogin(event) {
-            event.preventDefault();
-            const userID = document.getElementById('userID').value.toLowerCase();
-            const password = document.getElementById('password').value;
-            loginMessage.textContent = '';
-
-            const user = studentDatabase[userID];
-
-            if (user && user.password === password) {
-                localStorage.setItem('loggedInUser', userID);
-                showDashboard(user);
-            } else {
-                loginMessage.textContent = 'UserID atau Password salah!';
-            }
-        }
-
-        function showDashboard(user) {
-            welcomeMessage.textContent = `Hai, ${user.fullName}`;
-            updateTime();
-            setInterval(updateTime, 1000 * 60); // Update jam setiap menit
-            
-            navigateTo(dashboardPage);
-
-            // Tunda pengecekan alpha agar transisi halaman mulus
-            setTimeout(() => {
-                if (user.alphaCount > 0) {
-                    alphaMessage.textContent = `Anda tercatat tidak hadir (Alpha) sebanyak ${user.alphaCount} kali pada hari kerja sebelumnya.`;
-                    alphaModal.style.display = 'flex';
-                    console.log(`[SIMULASI] Notifikasi WA ke Admin: Siswa "${user.fullName}" (UserID: ${userID}) terdeteksi Alpha ${user.alphaCount} kali.`);
-                }
-            }, 500);
+            setTimeout(() => pageElement.classList.add('active'), 50);
         }
         
-        function handleAttendanceSubmit(event) {
-            event.preventDefault();
-            const keterangan = attendanceForm.querySelector('input[name="keterangan"]:checked').value;
-            attendanceSection.style.display = 'none';
-            attendanceStatus.innerHTML = `<h4>Terima Kasih!</h4><p>Absen Anda sebagai "${keterangan}" telah berhasil dicatat.</p>`;
-            attendanceStatus.style.display = 'block';
-        }
+        function updateTime() { const now = new Date(); const optionsDate = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }; currentDateEl.textContent = now.toLocaleDateString('id-ID', optionsDate); currentTimeEl.textContent = now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }); }
         
-        function handleLogout() {
-            localStorage.removeItem('loggedInUser');
-            // Reset form dan status
-            attendanceSection.style.display = 'block';
-            attendanceStatus.style.display = 'none';
-            loginForm.reset();
-            navigateTo(loginPage);
-        }
-
-        function handleForgotPassword(event) {
-            event.preventDefault();
-            const userID = prompt("Masukkan UserID Anda:");
-            if(userID && studentDatabase[userID.toLowerCase()]) {
-                alert("Permintaan reset password telah disimulasikan ke Admin. Silakan hubungi admin Anda.");
-                console.log(`[SIMULASI] Permintaan lupa password untuk UserID: ${userID}`);
-            } else if (userID) {
-                alert("UserID tidak ditemukan dalam sistem.");
-            }
-        }
-
-        // --- EVENT LISTENERS ---
+        function handleLogin(event) { event.preventDefault(); const userID = document.getElementById('userID').value.toLowerCase(); const password = document.getElementById('password').value; loginMessage.textContent = ''; const user = studentDatabase[userID]; if (user && user.password === password) { localStorage.setItem('loggedInUser', userID); showDashboard(user); } else { loginMessage.textContent = 'UserID atau Password salah!'; } }
+        
+        function showDashboard(user) { welcomeMessage.textContent = `Hai, ${user.fullName}`; updateTime(); setInterval(updateTime, 1000 * 60); navigateTo(dashboardPage); setTimeout(() => { if (user.alphaCount > 0) { alphaMessage.textContent = `Anda tercatat tidak hadir (Alpha) sebanyak ${user.alphaCount} kali pada hari kerja sebelumnya.`; alphaModal.style.display = 'flex'; console.log(`[SIMULASI] Notifikasi WA ke Admin: Siswa "${user.fullName}" (UserID: ${userID}) terdeteksi Alpha ${user.alphaCount} kali.`); } }, 500); }
+        
+        function handleAttendanceSubmit(event) { event.preventDefault(); const keterangan = attendanceForm.querySelector('input[name="keterangan"]:checked').value; attendanceSection.style.display = 'none'; attendanceStatus.innerHTML = `<h4>Terima Kasih!</h4><p>Absen Anda sebagai "${keterangan}" telah berhasil dicatat.</p>`; attendanceStatus.style.display = 'block'; }
+        
+        function handleLogout() { localStorage.removeItem('loggedInUser'); attendanceSection.style.display = 'block'; attendanceStatus.style.display = 'none'; loginForm.reset(); navigateTo(loginPage); }
+        
+        function handleForgotPassword(event) { event.preventDefault(); const userID = prompt("Masukkan UserID Anda:"); if(userID && studentDatabase[userID.toLowerCase()]) { alert("Permintaan reset password telah disimulasikan ke Admin. Silakan hubungi admin Anda."); console.log(`[SIMULASI] Permintaan lupa password untuk UserID: ${userID}`); } else if (userID) { alert("UserID tidak ditemukan dalam sistem."); } }
+        
         loginForm.addEventListener('submit', handleLogin);
         logoutBtn.addEventListener('click', handleLogout);
         attendanceForm.addEventListener('submit', handleAttendanceSubmit);
         forgotPasswordLink.addEventListener('click', handleForgotPassword);
         closeModalBtn.addEventListener('click', () => alphaModal.style.display = 'none');
         
-        // Cek jika user sudah login saat aplikasi dibuka
-        window.addEventListener('load', () => {
-            const loggedInUserID = localStorage.getItem('loggedInUser');
-            if (loggedInUserID && studentDatabase[loggedInUserID]) {
-                showDashboard(studentDatabase[loggedInUserID]);
-            }
-        });
+        window.addEventListener('load', () => { const loggedInUserID = localStorage.getItem('loggedInUser'); if (loggedInUserID && studentDatabase[loggedInUserID]) { showDashboard(studentDatabase[loggedInUserID]); } else { navigateTo(loginPage); } });
     </script>
 </body>
 </html>

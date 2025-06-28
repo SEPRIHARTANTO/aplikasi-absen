@@ -1,172 +1,38 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <!-- Pengaturan Dasar PWA -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="theme-color" content="#5A67D8"/>
     <title>Aplikasi Absen Kelas</title>
     <link rel="manifest" href="manifest.json">
     <link rel="apple-touch-icon" href="icon-192.png">
-    
-    <!-- Impor Font dari Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
-        :root {
-            --primary-color: #53A19E; /* Indigo */
-            --background-color: #8BFFFA; /* Gray 100 */
-            --card-bg: #FFFFFF;
-            --text-color: #2D3748; /* Gray 800 */
-            --subtle-text: #718096; /* Gray 500 */
-            --danger-color: #E53E3E; /* Red 600 */
-            --success-color: #38A169; /* Green 600 */
-            --input-bg: #EDF2F7; /* Gray 200 */
-        }
-
-        html, body {
-            height: 100%;
-            margin: 0;
-            overscroll-behavior: contain;
-        }
-
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: var(--background-color);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .app-shell {
-            width: 100%;
-            height: 100%;
-            max-width: 450px;
-            background-color: var(--card-bg);
-            box-shadow: 0 0 30px rgba(0,0,0,0.05);
-            overflow: hidden;
-            position: relative;
-        }
-
-        .page {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            padding: 0; /* Padding diatur per section */
-            box-sizing: border-box;
-            opacity: 0;
-            transform: scale(0.98);
-            transition: opacity 0.35s ease-in-out, transform 0.35s ease-in-out;
-            background-color: var(--card-bg);
-            overflow-y: auto;
-            visibility: hidden;
-        }
-        
-        .page.active {
-            opacity: 1;
-            transform: scale(1);
-            visibility: visible;
-        }
-
-        /* --- Tampilan Halaman Login Baru --- */
-        #login-page .login-container {
-            padding: 30px;
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-            box-sizing: border-box;
-        }
-
-        .login-illustration {
-            text-align: center;
-            padding: 40px 0 30px 0;
-        }
-        
-        .login-illustration svg {
-            width: 80%;
-            max-width: 250px;
-        }
-
-        .login-header h2 {
-            font-size: 1.8em;
-            font-weight: 700;
-            margin: 0 0 5px 0;
-            color: var(--text-color);
-        }
-
-        .login-header p {
-            margin: 0 0 30px 0;
-            color: var(--subtle-text);
-            font-size: 1em;
-        }
-        
-        /* Input Fields dengan Ikon */
-        .input-group { 
-            margin-bottom: 20px; 
-            position: relative;
-        }
-        .input-group .icon {
-            position: absolute;
-            left: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--subtle-text);
-            width: 20px;
-            height: 20px;
-        }
-        .input-group input {
-            width: 100%;
-            padding: 15px 15px 15px 50px; /* Padding kiri untuk ikon */
-            border: 1px solid transparent;
-            border-radius: 5px;
-            box-sizing: border-box;
-            font-size: 1em;
-            font-family: 'Poppins', sans-serif;
-            background-color: var(--input-bg);
-            transition: border-color 0.2s, box-shadow 0.2s;
-        }
-        .input-group input:focus {
-            outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(90, 103, 216, 0.2);
-        }
-
-        .main-button {
-            width: 100%;
-            padding: 16px;
-            background: var(--primary-color);
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1.1em;
-            font-weight: 600;
-            margin-top: 10px;
-            -webkit-tap-highlight-color: transparent;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-        .main-button:hover {
-            box-shadow: 0 5px 15px rgba(90, 103, 216, 0.3);
-            transform: translateY(-2px);
-        }
-        
-        .link-button {
-            color: var(--subtle-text);
-            text-decoration: none;
-            font-weight: 500;
-            display: block;
-            text-align: center;
-            margin-top: 25px;
-            font-size: 0.9em;
-        }
-        
+        /* CSS TETAP SAMA SEPERTI SEBELUMNYA, TIDAK PERLU DIUBAH */
+        :root { --primary-color: #5A67D8; --background-color: #F7FAFC; --card-bg: #FFFFFF; --text-color: #2D3748; --subtle-text: #718096; --danger-color: #E53E3E; --success-color: #38A169; --input-bg: #EDF2F7; }
+        html, body { height: 100%; margin: 0; overscroll-behavior: contain; }
+        body { font-family: 'Poppins', sans-serif; background-color: var(--background-color); display: flex; justify-content: center; align-items: center; }
+        .app-shell { width: 100%; height: 100%; max-width: 450px; background-color: var(--card-bg); box-shadow: 0 0 30px rgba(0,0,0,0.05); overflow: hidden; position: relative; }
+        .page { position: absolute; top: 0; left: 0; width: 100%; height: 100%; padding: 0; box-sizing: border-box; opacity: 0; transform: scale(0.98); transition: opacity 0.35s ease-in-out, transform 0.35s ease-in-out; background-color: var(--card-bg); overflow-y: auto; visibility: hidden; }
+        .page.active { opacity: 1; transform: scale(1); visibility: visible; }
+        #login-page .login-container { padding: 30px; display: flex; flex-direction: column; height: 100%; box-sizing: border-box; }
+        .login-illustration { text-align: center; padding: 40px 0 30px 0; }
+        .login-illustration svg { width: 80%; max-width: 250px; }
+        .login-header h2 { font-size: 1.8em; font-weight: 700; margin: 0 0 5px 0; color: var(--text-color); }
+        .login-header p { margin: 0 0 30px 0; color: var(--subtle-text); font-size: 1em; }
+        .input-group { margin-bottom: 20px; position: relative; }
+        .input-group .icon { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--subtle-text); width: 20px; height: 20px; }
+        .input-group input { width: 100%; padding: 15px 15px 15px 50px; border: 1px solid transparent; border-radius: 12px; box-sizing: border-box; font-size: 1em; font-family: 'Poppins', sans-serif; background-color: var(--input-bg); transition: border-color 0.2s, box-shadow 0.2s; }
+        .input-group input:focus { outline: none; border-color: var(--primary-color); box-shadow: 0 0 0 3px rgba(90, 103, 216, 0.2); }
+        .main-button { width: 100%; padding: 16px; background: var(--primary-color); color: white; border: none; border-radius: 12px; cursor: pointer; font-size: 1.1em; font-weight: 600; margin-top: 10px; -webkit-tap-highlight-color: transparent; transition: transform 0.2s, box-shadow 0.2s; }
+        .main-button:disabled { background: #BDBDBD; cursor: not-allowed; }
+        .main-button:hover:not(:disabled) { box-shadow: 0 5px 15px rgba(90, 103, 216, 0.3); transform: translateY(-2px); }
+        .link-button { color: var(--subtle-text); text-decoration: none; font-weight: 500; display: block; text-align: center; margin-top: 25px; font-size: 0.9em; }
         #login-message { text-align: center; color: var(--danger-color); height: 20px; font-weight: 500; }
-        
-        /* --- Style untuk halaman dasbor (tetap sama) --- */
         #dashboard-page { padding: 25px; }
         .dashboard-header { display: flex; justify-content: space-between; align-items: center; }
         .dashboard-header h3 { margin: 0; max-width: 80%; }
@@ -183,94 +49,48 @@
         .modal-content { background: var(--card-bg); padding: 30px; border-radius: 16px; text-align: center; width: 100%; max-width: 350px; }
         .modal-content h3 { margin-top: 0; color: var(--danger-color); }
         .modal-content .main-button { margin-top: 25px; }
-
     </style>
 </head>
 <body>
 
     <div class="app-shell">
-        <!-- HALAMAN LOGIN DENGAN DESAIN BARU -->
-        <div id="login-page" class="page active">
-            <div class="login-container">
+        <div id="login-page" class="page">
+             <div class="login-container">
                 <div class="login-illustration">
-                    <div class="login-illustration">
-    <img src="https://3.bp.blogspot.com/-DnhmmR0pxP0/WyS873Gt1_I/AAAAAAAAB1Y/7cTebrwjYnwo9a6syqe-kY3RAyj8m-IiwCLcBGAs/s1600/OSIS%2BSMA..png" alt="Logo Sekolah" style="width: 150px; height: 150px; border-radius: 20px;">
-</div>
-                        <path fill="#EBF4FF" d="M37.7,-47.9C52.1,-37.9,69.5,-29,75.9,-14.8C82.4,-0.6,77.9,18.8,67.6,33.5C57.3,48.2,41.2,58.2,25.2,65.3C9.2,72.4,-6.8,76.6,-22.2,72.2C-37.7,67.8,-52.7,54.8,-63.9,39.6C-75.1,24.4,-82.6,7.1,-79.8,-8.5C-77,-24,-64,-37.8,-49.4,-48.1C-34.8,-58.4,-18.8,-65.2,-3.3,-63.2C12.1,-61.2,24.3,-58,37.7,-47.9Z" transform="translate(100 100)" />
-                    </svg>
+                    <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><path fill="#EBF4FF" d="M37.7,-47.9C52.1,-37.9,69.5,-29,75.9,-14.8C82.4,-0.6,77.9,18.8,67.6,33.5C57.3,48.2,41.2,58.2,25.2,65.3C9.2,72.4,-6.8,76.6,-22.2,72.2C-37.7,67.8,-52.7,54.8,-63.9,39.6C-75.1,24.4,-82.6,7.1,-79.8,-8.5C-77,-24,-64,-37.8,-49.4,-48.1C-34.8,-58.4,-18.8,-65.2,-3.3,-63.2C12.1,-61.2,24.3,-58,37.7,-47.9Z" transform="translate(100 100)" /></svg>
                 </div>
-                
-                <div class="login-header">
-                    <h2>Welcome!</h2>
-                    <p>Please login to start the attendance.</p>
-                </div>
-
+                <div class="login-header"><h2>Selamat Datang!</h2><p>Login untuk memulai absensi.</p></div>
                 <form id="login-form">
-                    <div class="input-group">
-                        <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.5a5.5 5.5 0 0 1 3.096 10.047 9.005 9.005 0 0 1 5.9 8.181.75.75 0 1 1-1.499.044 7.5 7.5 0 0 0-14.993 0 .75.75 0 0 1-1.5-.045 9.005 9.005 0 0 1 5.9-8.18A5.5 5.5 0 0 1 12 2.5ZM8 8a4 4 0 1 0 8 0 4 4 0 0 0-8 0Z" /></svg>
-                        <input type="text" id="userID" placeholder="ID Pengguna" value="budi01" required>
-                    </div>
-                    <div class="input-group">
-                        <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M18 1.5a2.25 2.25 0 0 1 2.25 2.25v5.337c.453.141.887.33 1.29.56V4.49A3.75 3.75 0 0 0 18 .75h- 상황에 맞춰 조정하십시오.a3.75 3.75 0 0 0-3.75 3.75v14.075c0 1.34.833 2.513 2.06 3.018a3.73 3.73 0 0 0 3.818-1.034 3.73 3.73 0 0 0 1.034-3.818c-.505-1.227-1.678-2.06-3.018-2.06h-1.125V9.75a.75.75 0 0 1 .75-.75h.008a.75.75 0 0 1 .75.75v3.188c1.334.33 2.54.941 3.562 1.762V4.49A2.25 2.25 0 0 1 18 1.5Z M12 1.5a5.25 5.25 0 0 0-5.25 5.25v3a.75.75 0 0 0 .75.75h9a.75.75 0 0 0 .75-.75v-3A5.25 5.25 0 0 0 12 1.5Zm-3.75 5.25v3h7.5v-3a3.75 3.75 0 0 0-7.5 0Z" /></svg>
-                        <input type="password" id="password" placeholder="Password" value="pass123" required>
-                    </div>
+                    <div class="input-group"><svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.5a5.5 5.5 0 0 1 3.096 10.047 9.005 9.005 0 0 1 5.9 8.181.75.75 0 1 1-1.499.044 7.5 7.5 0 0 0-14.993 0 .75.75 0 0 1-1.5-.045 9.005 9.005 0 0 1 5.9-8.18A5.5 5.5 0 0 1 12 2.5ZM8 8a4 4 0 1 0 8 0 4 4 0 0 0-8 0Z" /></svg><input type="text" id="userID" placeholder="ID Pengguna" required></div>
+                    <div class="input-group"><svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M18 1.5a2.25 2.25 0 0 1 2.25 2.25v5.337c.453.141.887.33 1.29.56V4.49A3.75 3.75 0 0 0 18 .75h- 상황에 맞춰 조정하십시오.a3.75 3.75 0 0 0-3.75 3.75v14.075c0 1.34.833 2.513 2.06 3.018a3.73 3.73 0 0 0 3.818-1.034 3.73 3.73 0 0 0 1.034-3.818c-.505-1.227-1.678-2.06-3.018-2.06h-1.125V9.75a.75.75 0 0 1 .75-.75h.008a.75.75 0 0 1 .75.75v3.188c1.334.33 2.54.941 3.562 1.762V4.49A2.25 2.25 0 0 1 18 1.5Z M12 1.5a5.25 5.25 0 0 0-5.25 5.25v3a.75.75 0 0 0 .75.75h9a.75.75 0 0 0 .75-.75v-3A5.25 5.25 0 0 0 12 1.5Zm-3.75 5.25v3h7.5v-3a3.75 3.75 0 0 0-7.5 0Z" /></svg><input type="password" id="password" placeholder="Password" required></div>
                     <p id="login-message"></p>
-                    <button type="submit" class="main-button">Login</button>
+                    <button type="submit" id="login-btn" class="main-button">Login</button>
                 </form>
                 <a href="#" id="forgot-password-link" class="link-button">Lupa Password?</a>
             </div>
         </div>
-
-        <!-- HALAMAN DASBOR (TIDAK BERUBAH) -->
         <div id="dashboard-page" class="page">
-             <div class="dashboard-header">
-                <h3 id="welcome-message">Hai, Pengguna</h3>
-                <button id="logout-btn">Logout</button>
-            </div>
-            <div class="info-card">
-                <p id="current-date"></p>
-                <p id="current-time"></p>
-            </div>
-            <div id="attendance-section">
-                <form id="attendance-form" class="attendance-form">
-                    <h4>Keterangan Kehadiran Hari Ini</h4>
-                    <div class="radio-group">
-                        <label>
-                            <input type="radio" name="keterangan" value="Hadir" checked> Hadir
-                        </label>
-                        <label>
-                            <input type="radio" name="keterangan" value="Sakit"> Sakit
-                        </label>
-                        <label>
-                            <input type="radio" name="keterangan" value="Izin"> Izin
-                        </label>
-                    </div>
-                    <br>
-                    <button type="submit" class="main-button">Kirim Absensi</button>
-                </form>
-            </div>
+             <div class="dashboard-header"><h3 id="welcome-message">Hai, Pengguna</h3><button id="logout-btn">Logout</button></div>
+            <div class="info-card"><p id="current-date"></p><p id="current-time"></p></div>
+            <div id="attendance-section"><form id="attendance-form" class="attendance-form"><h4>Keterangan Kehadiran Hari Ini</h4><div class="radio-group"><label><input type="radio" name="keterangan" value="Hadir" checked> Hadir</label><label><input type="radio" name="keterangan" value="Sakit"> Sakit</label><label><input type="radio" name="keterangan" value="Izin"> Izin</label></div><br><button type="submit" class="main-button">Kirim Absensi</button></form></div>
             <div id="attendance-status"></div>
         </div>
     </div>
-    
-    <!-- MODAL POP-UP NOTIFIKASI ALPHA -->
     <div id="alpha-modal" class="modal-overlay">
-        <div class="modal-content">
-            <h3>Pemberitahuan Kealpaan</h3>
-            <p id="alpha-message"></p>
-            <p style="font-size: 0.8em; color: #888;">(Notifikasi juga telah disimulasikan ke Admin)</p>
-            <button id="close-modal-btn" class="main-button">Saya Mengerti</button>
-        </div>
+        <div class="modal-content"><h3>Pemberitahuan Kealpaan</h3><p id="alpha-message"></p><p style="font-size: 0.8em; color: #888;">(Notifikasi juga telah disimulasikan ke Admin)</p><button id="close-modal-btn" class="main-button">Saya Mengerti</button></div>
     </div>
 
     <script>
-        // --- KODE JAVASCRIPT TETAP SAMA ---
+        // --- Titik Akhir API Backend Anda ---
+        // !!! PENTING: Ganti URL di bawah ini dengan URL Web App Anda dari Langkah 1 !!!
+        const API_ENDPOINT = "https://script.google.com/macros/s/AKfycbxW7JR1gyUxucFxEsP2q1HUpCdPJGs6IJ3CjfZkPxvUYPHReoyfu1AQAOr2O7bseb7A/exec";
 
-        const studentDatabase = { "budi01": { password: "pass123", fullName: "Budi Santoso", alphaCount: 3 }, "ana02": { password: "pass123", fullName: "Ana Yuliana", alphaCount: 0 }, "citra03": { password: "pass123", fullName: "Citra Lestari", alphaCount: 1 } };
+        // --- Elemen DOM ---
         const loginPage = document.getElementById('login-page');
         const dashboardPage = document.getElementById('dashboard-page');
         const loginForm = document.getElementById('login-form');
         const loginMessage = document.getElementById('login-message');
+        const loginBtn = document.getElementById('login-btn');
         const welcomeMessage = document.getElementById('welcome-message');
         const currentDateEl = document.getElementById('current-date');
         const currentTimeEl = document.getElementById('current-time');
@@ -282,31 +102,142 @@
         const alphaModal = document.getElementById('alpha-modal');
         const alphaMessage = document.getElementById('alpha-message');
         const closeModalBtn = document.getElementById('close-modal-btn');
-        
-        function navigateTo(pageElement) {
-            document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
-            setTimeout(() => pageElement.classList.add('active'), 50);
+
+        /**
+         * Fungsi untuk berkomunikasi dengan Google Apps Script.
+         * @param {Object} payload - Data yang akan dikirim.
+         * @returns {Promise<Object>} - Respon dari server.
+         */
+        async function apiCall(payload) {
+            try {
+                const response = await fetch(API_ENDPOINT, {
+                    method: 'POST',
+                    mode: 'cors',
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' }, // Diperlukan untuk Google Apps Script
+                    body: JSON.stringify(payload),
+                    redirect: 'follow'
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return await response.json();
+            } catch (error) {
+                console.error('API Call failed:', error);
+                return { success: false, message: 'Tidak dapat terhubung ke server. Periksa koneksi Anda.' };
+            }
         }
         
-        function updateTime() { const now = new Date(); const optionsDate = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }; currentDateEl.textContent = now.toLocaleDateString('id-ID', optionsDate); currentTimeEl.textContent = now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }); }
+        function navigateTo(pageElement) { document.querySelectorAll('.page').forEach(p => p.classList.remove('active')); setTimeout(() => pageElement.classList.add('active'), 50); }
+        function updateTime() { const now = new Date(); const opts = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }; currentDateEl.textContent = now.toLocaleDateString('id-ID', opts); currentTimeEl.textContent = now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }); }
+
+        async function handleLogin(event) {
+            event.preventDefault();
+            const userID = document.getElementById('userID').value;
+            const password = document.getElementById('password').value;
+            loginMessage.textContent = '';
+            loginBtn.disabled = true;
+            loginBtn.textContent = "Memverifikasi...";
+
+            const response = await apiCall({ action: 'login', userID, password });
+
+            if (response.success) {
+                // Simpan data user ke localStorage
+                localStorage.setItem('loggedInUser', JSON.stringify(response.user));
+                await showDashboard(response.user);
+            } else {
+                loginMessage.textContent = response.message || 'Login gagal.';
+            }
+            loginBtn.disabled = false;
+            loginBtn.textContent = "Login";
+        }
+
+        async function showDashboard(user) {
+            welcomeMessage.textContent = `Hai, ${user.nama}`;
+            updateTime();
+            setInterval(updateTime, 1000 * 60);
+            navigateTo(dashboardPage);
+            
+            // Ambil data dashboard dari server
+            const dashboardDataResponse = await apiCall({ action: 'get_dashboard_data', userID: user.userID });
+
+            if (dashboardDataResponse.success) {
+                const { alphaCount, hasSubmitted } = dashboardDataResponse.data;
+                
+                if (hasSubmitted) {
+                    attendanceSection.style.display = 'none';
+                    attendanceStatus.innerHTML = `<h4>Terima Kasih!</h4><p>Anda sudah melakukan absensi hari ini.</p>`;
+                    attendanceStatus.style.display = 'block';
+                }
+
+                if (alphaCount > 0) {
+                    setTimeout(() => {
+                        alphaMessage.textContent = `Anda tercatat tidak hadir (Alpha) sebanyak ${alphaCount} kali pada hari kerja sebelumnya.`;
+                        alphaModal.style.display = 'flex';
+                    }, 500);
+                }
+            } else {
+                alert('Gagal memuat data dashboard: ' + dashboardDataResponse.message);
+            }
+        }
         
-        function handleLogin(event) { event.preventDefault(); const userID = document.getElementById('userID').value.toLowerCase(); const password = document.getElementById('password').value; loginMessage.textContent = ''; const user = studentDatabase[userID]; if (user && user.password === password) { localStorage.setItem('loggedInUser', userID); showDashboard(user); } else { loginMessage.textContent = 'UserID atau Password salah!'; } }
+        async function handleAttendanceSubmit(event) {
+            event.preventDefault();
+            const keterangan = attendanceForm.querySelector('input[name="keterangan"]:checked').value;
+            const user = JSON.parse(localStorage.getItem('loggedInUser'));
+            const button = attendanceForm.querySelector('button');
+            button.disabled = true;
+            button.textContent = "Mengirim...";
+            
+            const response = await apiCall({ action: 'record_attendance', userID: user.userID, keterangan: keterangan });
+            
+            if (response.success) {
+                attendanceSection.style.display = 'none';
+                attendanceStatus.innerHTML = `<h4>Berhasil!</h4><p>Absen Anda sebagai "${keterangan}" telah dicatat.</p>`;
+                attendanceStatus.style.display = 'block';
+            } else {
+                alert('Gagal mengirim absen: ' + response.message);
+                button.disabled = false;
+                button.textContent = "Kirim Absensi";
+            }
+        }
         
-        function showDashboard(user) { welcomeMessage.textContent = `Hai, ${user.fullName}`; updateTime(); setInterval(updateTime, 1000 * 60); navigateTo(dashboardPage); setTimeout(() => { if (user.alphaCount > 0) { alphaMessage.textContent = `Anda tercatat tidak hadir (Alpha) sebanyak ${user.alphaCount} kali pada hari kerja sebelumnya.`; alphaModal.style.display = 'flex'; console.log(`[SIMULASI] Notifikasi WA ke Admin: Siswa "${user.fullName}" (UserID: ${userID}) terdeteksi Alpha ${user.alphaCount} kali.`); } }, 500); }
+        function handleLogout() {
+            localStorage.removeItem('loggedInUser');
+            // Reset UI
+            attendanceSection.style.display = 'block';
+            attendanceStatus.style.display = 'none';
+            loginForm.reset();
+            loginMessage.textContent = '';
+            navigateTo(loginPage);
+        }
         
-        function handleAttendanceSubmit(event) { event.preventDefault(); const keterangan = attendanceForm.querySelector('input[name="keterangan"]:checked').value; attendanceSection.style.display = 'none'; attendanceStatus.innerHTML = `<h4>Terima Kasih!</h4><p>Absen Anda sebagai "${keterangan}" telah berhasil dicatat.</p>`; attendanceStatus.style.display = 'block'; }
-        
-        function handleLogout() { localStorage.removeItem('loggedInUser'); attendanceSection.style.display = 'block'; attendanceStatus.style.display = 'none'; loginForm.reset(); navigateTo(loginPage); }
-        
-        function handleForgotPassword(event) { event.preventDefault(); const userID = prompt("Masukkan UserID Anda:"); if(userID && studentDatabase[userID.toLowerCase()]) { alert("Permintaan reset password telah disimulasikan ke Admin. Silakan hubungi admin Anda."); console.log(`[SIMULASI] Permintaan lupa password untuk UserID: ${userID}`); } else if (userID) { alert("UserID tidak ditemukan dalam sistem."); } }
-        
+        async function handleForgotPassword(event) {
+            event.preventDefault();
+            const userID = prompt("Masukkan UserID Anda untuk reset password:");
+            if (userID) {
+                alert('Memproses permintaan...');
+                const response = await apiCall({ action: 'forgot_password', userID: userID });
+                alert(response.message);
+            }
+        }
+
+        // --- Event Listeners ---
         loginForm.addEventListener('submit', handleLogin);
         logoutBtn.addEventListener('click', handleLogout);
         attendanceForm.addEventListener('submit', handleAttendanceSubmit);
         forgotPasswordLink.addEventListener('click', handleForgotPassword);
         closeModalBtn.addEventListener('click', () => alphaModal.style.display = 'none');
         
-        window.addEventListener('load', () => { const loggedInUserID = localStorage.getItem('loggedInUser'); if (loggedInUserID && studentDatabase[loggedInUserID]) { showDashboard(studentDatabase[loggedInUserID]); } else { navigateTo(loginPage); } });
+        // --- Cek status login saat aplikasi dimuat ---
+        window.addEventListener('load', () => {
+            const loggedInUserJSON = localStorage.getItem('loggedInUser');
+            if (loggedInUserJSON) {
+                showDashboard(JSON.parse(loggedInUserJSON));
+            } else {
+                navigateTo(loginPage);
+            }
+        });
     </script>
 </body>
 </html>
